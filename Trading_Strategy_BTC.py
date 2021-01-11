@@ -27,10 +27,6 @@ class Strategy():
         self.high_price_trace = np.array([])
         self.low_price_trace = np.array([])
         self.volume_trace = np.array([])
-        self.ma_long = 10  #定義10個週期，用以計算長均線
-        self.ma_short = 5  #定義5個週期，用以計算短均線
-        self.UP = 1
-        self.DOWN = 2
         self.buy_price = np.array([])
         self.buy_frequency = 0.1
     
@@ -60,14 +56,6 @@ class Strategy():
 
         return K,D,J, KDJ_status
 
-    def get_current_ma_cross(self):
-        s_ma = talib.SMA(self.close_price_trace, self.ma_short)[-1]
-        l_ma = talib.SMA(self.close_price_trace, self.ma_long)[-1]
-        if np.isnan(s_ma) or np.isnan(l_ma):
-            return None
-        if s_ma < self.close_price_trace[-1]:
-            return self.UP
-        return self.DOWN
 
     # called every self.period
     def trade(self, information):
